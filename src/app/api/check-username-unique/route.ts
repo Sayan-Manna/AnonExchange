@@ -22,8 +22,10 @@ export async function GET(request: Request) {
       return Response.json(
         {
           success: false,
-          message: "Invalid query parameter",
-          errors: usernameErrors,
+          message:
+            usernameErrors?.length > 0
+              ? usernameErrors.join(", ")
+              : "Invalid query parameters",
         },
         { status: 400 }
       );
