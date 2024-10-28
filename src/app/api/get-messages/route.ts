@@ -8,7 +8,7 @@ import { authOptions } from "../auth/[...nextauth]/options";
 export async function GET(request: Request) {
   await dbConnect();
   const session = await getServerSession(authOptions);
-  const _user: User = session?.user;
+  const _user: User = session?.user as User;
 
   if (!session || !_user) {
     return Response.json(
@@ -16,14 +16,19 @@ export async function GET(request: Request) {
       { status: 401 }
     );
   }
+  console.log("User", _user);
+
   const userId = new mongoose.Types.ObjectId(_user._id);
+  // console.log("User ID", userId);
+
   try {
     const user = await UserModel.aggregate([
       { $match: { _id: userId } },
-      { $unwind: "$messages" },
+      { $unwind: { path: "$messages", preserveNullAndEmptyArrays: true } }, // allowing empty array of messages. Without "preserveNullAndEmptyArrays: true", toast will show user not found which is not a correct message.
       { $sort: { "messages.createdAt": -1 } },
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]).exec();
+    // console.log(user);
 
     if (!user || user.length === 0) {
       return Response.json(

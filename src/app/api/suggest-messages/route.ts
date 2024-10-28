@@ -1,37 +1,59 @@
-import OpenAI from "openai";
-import { OpenAIStream, StreamingTextResponse } from "ai";
-import { NextResponse } from "next/server";
+import { google } from "@ai-sdk/google";
+import { streamText } from "ai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-export const runtime = "edge";
+let limits = {
+  message: 0,
+  data: 0,
+};
 
 export async function POST(req: Request) {
   try {
-    const prompt =
-      "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
+    // Increment the request counts
+    limits.message++;
+    limits.data++;
 
-    const response = await openai.completions.create({
-      model: "gpt-3.5-turbo-instruct",
-      max_tokens: 400,
-      stream: true,
-      prompt,
-    });
+    console.log(`Message count: ${limits.message}`);
+    console.log(`Data count: ${limits.data}`);
 
-    const stream = OpenAIStream(response);
+    if (limits.message <= 12 || limits.data <= 1450) {
+      const prompt =
+        "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
 
-    return new StreamingTextResponse(stream);
-  } catch (error) {
-    if (error instanceof OpenAI.APIError) {
-      // OpenAI API error handling
-      const { name, status, headers, message } = error;
-      return NextResponse.json({ name, status, headers, message }, { status });
-    } else {
-      // General error handling
-      console.error("An unexpected error occurred:", error);
-      throw error;
+      const response = await streamText({
+        model: google("gemini-1.5-flash-latest"),
+        prompt,
+      });
+      return response.toDataStreamResponse();
     }
+    if (limits.message > 12) {
+      setTimeout(() => {
+        limits.message = 0;
+      }, 60000); // Reset message limit after 1 minute
+    }
+
+    if (limits.data > 1450) {
+      setTimeout(() => {
+        limits.data = 0;
+      }, 1440000); // Reset data limit after 24 minutes
+    }
+    return Response.json(
+      {
+        success: false,
+        message:
+          limits.message > 12
+            ? "Message limit exceeded. Try again later."
+            : "Data limit exceeded. Try again later.",
+      },
+      { status: 403 }
+    );
+  } catch (error) {
+    console.error("An error occured in suggest-messages");
+    return Response.json(
+      {
+        success: false,
+        message: "This feature isn't available at the moment. Try again later",
+      },
+      { status: 500 }
+    );
   }
 }
