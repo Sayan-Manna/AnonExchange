@@ -74,6 +74,8 @@ const Page = () => {
         title: "success",
         description: response.data.message,
       });
+      console.log("signup form data :: ", data);
+
       router.replace(`/verify/${username}`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -134,7 +136,7 @@ const Page = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <Input {...field} name="email" />
-                  <p className="text-muted text-gray-400 text-sm">
+                  <p className="text-muted text-gray-500 text-sm">
                     We will send you a verification code
                   </p>
                   <FormMessage />

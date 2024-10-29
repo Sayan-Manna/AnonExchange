@@ -91,7 +91,11 @@ export default function SendMessage() {
       complete("");
     } catch (error) {
       console.error("Error fetching messages:", error);
-      // Handle error appropriately
+      toast({
+        title: "Error",
+        description: "Could not get suggested messages",
+        variant: "destructive",
+      });
     }
   };
 

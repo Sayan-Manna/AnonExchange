@@ -28,6 +28,7 @@ function UserDashboard() {
   };
 
   const { data: session } = useSession();
+  console.log("session: ", session);
 
   const form = useForm({
     resolver: zodResolver(AcceptMessageSchema),
@@ -121,6 +122,7 @@ function UserDashboard() {
   }
 
   const { username } = session.user as User;
+  console.log("username", username);
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -181,7 +183,7 @@ function UserDashboard() {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={message._id as string}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />

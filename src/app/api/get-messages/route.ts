@@ -16,7 +16,6 @@ export async function GET(request: Request) {
       { status: 401 }
     );
   }
-  console.log("User", _user);
 
   const userId = new mongoose.Types.ObjectId(_user._id);
   // console.log("User ID", userId);
