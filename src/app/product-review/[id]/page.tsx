@@ -35,13 +35,16 @@ const reviewSchema = z.object({
   content: z
     .string()
     .min(10, "Review content should be at least 10 characters long"),
-  rating: z.union([
-    z.literal("1"),
-    z.literal("2"),
-    z.literal("3"),
-    z.literal("4"),
-    z.literal("5"),
-  ]),
+  // rating: z.union([
+  //   z.literal("1"),
+  //   z.literal("2"),
+  //   z.literal("3"),
+  //   z.literal("4"),
+  //   z.literal("5"),
+  // ]),
+  // Explicitly type the rating "1" to "5"
+  // do it copilot
+  rating: z.enum(["1", "2", "3", "4", "5"]),
 });
 
 interface ApiResponse {
@@ -58,7 +61,7 @@ export default function ProductReview() {
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       content: "",
-      rating: "" as "1" | "2" | "3" | "4" | "5" | "", // Explicitly type `rating`
+      rating: "1" as const, // Explicitly type `rating`
     },
   });
 
@@ -73,9 +76,11 @@ export default function ProductReview() {
   const fetchProductDetails = useCallback(async () => {
     setIsLoadingProduct(true);
     try {
-      const response = await axios.get<Product>(`/api/products/${id}`);
-      console.log("Fetched product:", response.data);
-      setProduct(response.data);
+      const response = await axios.get<{ success: boolean; product: Product }>(
+        `/api/products/${id}`
+      );
+      console.log("Fetched product:", response.data.product);
+      setProduct(response.data.product);
     } catch (error) {
       console.error("Error fetching product details:", error);
       toast({
@@ -97,7 +102,6 @@ export default function ProductReview() {
     try {
       const response = await axios.post<ApiResponse>(`/api/send-review/${id}`, {
         ...data,
-        rating: data.rating as "1" | "2" | "3" | "4" | "5", // Explicitly cast the rating
       });
 
       toast({

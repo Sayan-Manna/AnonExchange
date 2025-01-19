@@ -29,7 +29,7 @@ function ProductList() {
     description: "",
     price: "",
     image: "",
-    isAcceptingReviews: false,
+    isAcceptingReviews: true,
   });
 
   // Fetch products on page load
@@ -38,6 +38,7 @@ function ProductList() {
       try {
         const response = await axios.get("/api/get-product");
         setProducts(response.data.products);
+        console.log("Fetched productsssss:", response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -60,7 +61,7 @@ function ProductList() {
           description: "",
           price: "",
           image: "",
-          isAcceptingReviews: false,
+          isAcceptingReviews: true,
         }); // Reset form fields
       }
     } catch (error) {
