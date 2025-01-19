@@ -13,7 +13,7 @@ export async function POST(
 
   // Get session and user
   const session = await getServerSession(authOptions);
-  console.log("Session Object:", session);
+  // console.log("Session Object:", session);
   const user: User = session?.user;
 
   if (!session || !user) {
@@ -41,8 +41,8 @@ export async function POST(
     }
 
     // Log the ownership check
-    console.log("Session User ID:", user.id);
-    console.log("Product User ID:", product.user.toString());
+    // console.log("Session User ID:", user.id);
+    // console.log("Product User ID:", product.user.toString());
 
     if (product.user.toString() !== user._id) {
       return new Response(

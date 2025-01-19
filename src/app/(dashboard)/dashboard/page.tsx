@@ -33,7 +33,7 @@ function UserDashboard() {
   };
 
   const { data: session } = useSession();
-  console.log("session: ", session);
+  // console.log("session: ", session);
 
   const form = useForm({
     resolver: zodResolver(AcceptMessageSchema),
@@ -127,7 +127,7 @@ function UserDashboard() {
   }
 
   const { username } = session.user as User;
-  console.log("username", username);
+  // console.log("username", username);
 
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;

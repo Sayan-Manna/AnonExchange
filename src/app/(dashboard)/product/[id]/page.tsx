@@ -120,7 +120,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
       });
 
       const data = await response.json();
-      console.log("Backend Response:", data); // Log the response to see more details
+      // console.log("Backend Response:", data); // Log the response to see more details
 
       if (data.success) {
         setIsAcceptingReviews(!isAcceptingReviews);

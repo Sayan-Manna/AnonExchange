@@ -74,7 +74,7 @@ const Page = () => {
         title: "success",
         description: response.data.message,
       });
-      console.log("signup form data :: ", data);
+      // console.log("signup form data :: ", data);
 
       router.replace(`/verify/${username}`);
     } catch (error) {

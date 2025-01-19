@@ -79,7 +79,7 @@ export default function ProductReview() {
       const response = await axios.get<{ success: boolean; product: Product }>(
         `/api/products/${id}`
       );
-      console.log("Fetched product:", response.data.product);
+      // console.log("Fetched product:", response.data.product);
       setProduct(response.data.product);
     } catch (error) {
       console.error("Error fetching product details:", error);

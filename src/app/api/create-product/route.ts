@@ -13,14 +13,14 @@ export async function POST(request: NextRequest) {
     let { title, description, price, image, isAcceptingReviews, user } =
       requestBody;
 
-    console.log("Received data:", {
-      title,
-      description,
-      price,
-      image,
-      user,
-      isAcceptingReviews,
-    });
+    // console.log("Received data:", {
+    //   title,
+    //   description,
+    //   price,
+    //   image,
+    //   user,
+    //   isAcceptingReviews,
+    // });
 
     // If no user is provided in the request body, attempt to fetch from the session (if using next-auth)
     let userId = user;
