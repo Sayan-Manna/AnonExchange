@@ -6,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const url = new URL(req.url); // Extract URL from the request
   const id = url.pathname.split("/").pop(); // Extract ID from the URL path
+  // console.log("Product ID:", id);
 
   if (!id || Array.isArray(id)) {
     return NextResponse.json(

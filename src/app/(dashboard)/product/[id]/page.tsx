@@ -65,6 +65,8 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     if (params.id) {
+      // console.log("Fetching product with ID:", params.id); // Debugging log
+
       fetchProductDetails(params.id);
     }
   }, [params.id, fetchProductDetails]);

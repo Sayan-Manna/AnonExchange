@@ -13,7 +13,7 @@ export async function POST(
 
     // Parse the JSON body
     const body = await request.json();
-    console.log("Incoming request body:", body);
+    // console.log("Incoming request body:", body);
 
     // Destructure content and rating from the request body
     const { content, rating } = body;
