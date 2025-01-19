@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         message: "Failed to create product",
-        error: error.message,
+        error: error,
       },
       { status: 500 }
     );
