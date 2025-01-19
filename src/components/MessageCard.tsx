@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import axios, { AxiosError } from "axios";
 import dayjs from "dayjs";
 import { X } from "lucide-react";
@@ -23,7 +23,7 @@ import { useToast } from "@/hooks/use-toast";
 
 type MessageCardProps = {
   message: Message;
-  onMessageDelete: (messageId: string) => void;
+  onMessageDelete?: (messageId: string) => void;
 };
 
 export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
@@ -37,7 +37,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
       toast({
         title: response.data.message,
       });
-      onMessageDelete(message._id as string);
+      onMessageDelete?.(message._id as string);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
@@ -50,10 +50,15 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   };
 
   return (
-    <Card className="card-bordered">
-      <CardHeader>
+    <Card className="h-full flex flex-col p-4 border rounded shadow-sm">
+      {/* Header with title and delete button */}
+      <CardHeader className="mb-2">
         <div className="flex justify-between items-center">
-          <CardTitle>{message.content}</CardTitle>
+          {/* Title */}
+          <CardTitle className="text-lg font-medium truncate w-5/6">
+            {message.content}
+          </CardTitle>
+          {/* Delete button */}
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">
@@ -77,11 +82,17 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <div className="text-sm">
+        {/* Date */}
+        <div className="text-sm text-gray-500">
           {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
         </div>
       </CardHeader>
-      <CardContent></CardContent>
+      {/* Content */}
+      <CardContent className="flex-grow overflow-hidden">
+        <p className="text-gray-700 text-sm line-clamp-3 break-words">
+          {message.content}
+        </p>
+      </CardContent>
     </Card>
   );
 }

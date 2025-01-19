@@ -6,7 +6,10 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white w-full">
+    <div
+      suppressHydrationWarning
+      className="flex flex-col min-h-screen bg-black text-white w-full"
+    >
       <Navbar />
       {children}
     </div>
