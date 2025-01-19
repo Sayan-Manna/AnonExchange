@@ -122,8 +122,8 @@ export default function Home() {
           minTwinkleSpeed={settings.minSpeed}
           maxTwinkleSpeed={settings.maxSpeed}
         />
-        <section className="text-center mb-8 md:mb-12">
-          <h1 className="text-4xl md:text-8xl  font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+        <section className="text-center mb-8 md:mb-12 ">
+          <h1 className="text-4xl md:text-8xl  font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 ">
             Speak Up Without Limits
           </h1>
           <TextShimmer

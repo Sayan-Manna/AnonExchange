@@ -91,7 +91,7 @@ function ProductList() {
           {products.map((product) => (
             <Link
               key={product._id}
-              href={`/product/${product._id}`}
+              href={`/products/${product._id}`}
               className="p-4 border rounded shadow"
             >
               {/* <img
