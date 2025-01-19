@@ -35,9 +35,13 @@ const reviewSchema = z.object({
   content: z
     .string()
     .min(10, "Review content should be at least 10 characters long"),
-  rating: z.enum(["1", "2", "3", "4", "5"], {
-    errorMap: () => ({ message: "Please select a rating" }),
-  }),
+  rating: z.union([
+    z.literal("1"),
+    z.literal("2"),
+    z.literal("3"),
+    z.literal("4"),
+    z.literal("5"),
+  ]),
 });
 
 interface ApiResponse {
@@ -54,7 +58,7 @@ export default function ProductReview() {
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       content: "",
-      rating: "",
+      rating: "" as "1" | "2" | "3" | "4" | "5" | "", // Explicitly type `rating`
     },
   });
 
@@ -71,7 +75,7 @@ export default function ProductReview() {
     try {
       const response = await axios.get<Product>(`/api/products/${id}`);
       console.log("Fetched product:", response.data);
-      setProduct(response.data.product);
+      setProduct(response.data);
     } catch (error) {
       console.error("Error fetching product details:", error);
       toast({
@@ -93,6 +97,7 @@ export default function ProductReview() {
     try {
       const response = await axios.post<ApiResponse>(`/api/send-review/${id}`, {
         ...data,
+        rating: data.rating as "1" | "2" | "3" | "4" | "5", // Explicitly cast the rating
       });
 
       toast({
