@@ -4,28 +4,40 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Named export for GET request
 export async function GET(req: NextRequest) {
-  const url = new URL(req.url); // Extract URL from the request
-  const id = url.pathname.split("/").pop(); // Extract ID from the URL path
-  // console.log("Product ID:", id);
+  // await dbConnect(); // Connect to the database
+  // console.log("Connected to database");
+  // const url = new URL(req.url); // Extract URL from the request
+  // const id = url.pathname.split("/").pop(); // Extract ID from the URL path
+  // // console.log("Product ID:", id);
 
-  if (!id || Array.isArray(id)) {
-    return NextResponse.json(
-      { success: false, message: "Invalid or missing product ID" },
-      { status: 400 }
-    );
-  }
+  // if (!id || Array.isArray(id)) {
+  //   return NextResponse.json(
+  //     { success: false, message: "Invalid or missing product ID" },
+  //     { status: 400 }
+  //   );
+  // }
 
   try {
-    // Fetch the product by ID
-    const product = await ProductModel.findById(id).exec();
+    await dbConnect();
+    console.log("MongoDB connection successful");
+
+    const url = new URL(req.url);
+    const id = url.pathname.split("/").pop();
+
+    if (!id || Array.isArray(id)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid or missing product ID" },
+        { status: 400 }
+      );
+    }
+
+    const product = await ProductModel.findById(id).lean().exec();
 
     if (!product) {
       return NextResponse.json(
         { success: false, message: "Product not found" },
         { status: 404 }
       );
-    } else {
-      console.log("Product found");
     }
 
     return NextResponse.json({

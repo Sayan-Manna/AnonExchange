@@ -6,9 +6,9 @@ export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  await dbConnect();
-
   try {
+    await dbConnect();
+    console.log("MongoDB connection successful");
     const { id } = params;
 
     // Parse the JSON body
