@@ -211,7 +211,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
             <p className="mb-4">Price: ${product.price}</p>
           </div>
 
-          {/* {product.image ? (
+          {product.image ? (
             <img
               src={product.image}
               alt={product.title}
@@ -219,7 +219,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
             />
           ) : (
             <div>No image available</div>
-          )} */}
+          )}
 
           {/* Display public URL */}
           {/* <div className="my-4">
