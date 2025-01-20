@@ -16,6 +16,7 @@ const MessageSchema: Schema<Message> = new Schema(
       type: Date,
       required: true,
       default: Date.now,
+      index: true,
     },
   },
   { timestamps: true }
@@ -34,12 +35,14 @@ const ReviewSchema = new Schema<Review>(
     product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
+      index: true,
       required: true,
     },
     rating: {
       type: String,
       required: true,
       enum: ["1", "2", "3", "4", "5"],
+      index: true,
     },
     createdAt: { type: Date, default: Date.now },
   },
@@ -73,7 +76,12 @@ const ProductSchema: Schema<Product> = new Schema(
         message: "Invalid image URL",
       },
     },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
+    },
     isAcceptingReviews: { type: Boolean, default: true },
     reviews: [ReviewSchema],
     createdAt: { type: Date, default: Date.now },
@@ -98,11 +106,13 @@ const UserSchema: Schema<User> = new Schema({
     required: [true, "Username is required"],
     trim: true,
     unique: true,
+    index: true,
   },
   email: {
     type: String,
     required: [true, "Email is required"],
     unique: true,
+    index: true,
     match: [
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Please fill a valid email address",

@@ -19,6 +19,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 function ProductDetailsPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<Product | null>(null);
@@ -209,10 +210,11 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
           </div>
 
           {product.image ? (
-            <img
+            <Image
               src={product.image}
               alt={product.title}
               className="md:w-80 h-80 object-cover mt-4 mx-auto"
+              loading="lazy"
             />
           ) : (
             <div>No image available</div>

@@ -1,3 +1,4 @@
+import UserModel, { ProductModel, ReviewModel } from "@/model/User";
 import mongoose from "mongoose";
 
 type ConnectionObject = {
@@ -18,6 +19,13 @@ async function dbConnect(): Promise<void> {
     // in db we get connections array, and the first item is our current connection. We check if it is ready
     // if it is ready, we set isConnected to the readyState of the connection
     connection.isConnected = db.connections[0].readyState;
+
+    await Promise.all([
+      UserModel.createIndexes(),
+      ProductModel.createIndexes(),
+      ReviewModel.createIndexes(),
+    ]);
+    console.log("Indexes created successfully");
 
     // console.log("Connected to database successfully");
   } catch (error) {
