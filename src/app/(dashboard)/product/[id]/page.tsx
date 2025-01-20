@@ -188,7 +188,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
         />
       </div>
 
-      <div className="relative w-full p-40">
+      <div className="relative p-4 md:p-40 min-h-[90vh] ">
         <GridPattern
           width={30}
           height={30}
@@ -200,7 +200,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
           )}
         />
         <div className="relative flex flex-col gap-11 mx-auto text-white rounded">
-          <h1 className="text-center text-7xl h-24 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+          <h1 className="text-center text-4xl md:text-7xl md:h-24 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
             {product.title}
           </h1>
           <div>
@@ -212,7 +212,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
             <img
               src={product.image}
               alt={product.title}
-              className="w-96 h-80 object-cover mt-4 mx-auto"
+              className="md:w-80 h-80 object-cover mt-4 mx-auto"
             />
           ) : (
             <div>No image available</div>
@@ -231,15 +231,15 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
               <Button onClick={copyToClipboard}>Copy URL</Button>
             </div>
           </div> */}
-          <div>
-            <ScriptCopyBtn
-              showMultiplePackageOptions={true}
-              codeLanguage="shell"
-              lightTheme="nord"
-              darkTheme="vitesse-dark"
-              commandMap={customCommandMap}
-            />
-          </div>
+
+          <ScriptCopyBtn
+            showMultiplePackageOptions={true}
+            codeLanguage="shell"
+            lightTheme="nord"
+            darkTheme="vitesse-dark"
+            commandMap={customCommandMap}
+            className="!w-60 mx-auto !ml-0"
+          />
 
           {/* Accept Reviews Switch */}
           <div className="flex">

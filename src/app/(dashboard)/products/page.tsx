@@ -86,7 +86,7 @@ function ProductList() {
         />
       </div>
 
-      <div className="relative">
+      <div className="relative h-[90vh]">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {products.map((product) => (
             <Link

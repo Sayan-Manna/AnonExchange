@@ -154,7 +154,7 @@ function UserDashboard() {
         />
       </div>
 
-      <div className="relative w-full p-40 ">
+      <div className="relative w-full p-4 md:p-40 h-[90vh] ">
         {/* Squares Background */}
         <GridPattern
           width={30}
@@ -169,7 +169,7 @@ function UserDashboard() {
 
         {/* Dashboard Content */}
         <div className="relative flex flex-col gap-11 mx-auto text-white rounded">
-          <h1 className="text-center text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+          <h1 className="text-center text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
             User Dashboard
           </h1>
 
@@ -187,15 +187,15 @@ function UserDashboard() {
               <Button onClick={copyToClipboard}>Copy</Button>
             </div>
           </div> */}
-          <div className="">
-            <ScriptCopyBtn
-              showMultiplePackageOptions={true}
-              codeLanguage="shell"
-              lightTheme="nord"
-              darkTheme="vitesse-dark"
-              commandMap={customCommandMap}
-            />
-          </div>
+
+          <ScriptCopyBtn
+            showMultiplePackageOptions={true}
+            codeLanguage="shell"
+            lightTheme="nord"
+            darkTheme="vitesse-dark"
+            commandMap={customCommandMap}
+            className="!w-60 mx-auto !ml-0"
+          />
 
           <div className="flex">
             <Switch
@@ -224,7 +224,7 @@ function UserDashboard() {
               )}
             </Button>
           </div>
-          <div className="overflow-y-auto h-[30rem]">
+          <div className="overflow-y-auto h-[30rem] w-full">
             <div className=" grid grid-cols-1 md:grid-cols-2 gap-6">
               {messages.length > 0 ? (
                 messages.map((message, index) => (

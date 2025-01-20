@@ -1,5 +1,7 @@
 "use client";
+
 import * as React from "react";
+import { usePathname } from "next/navigation";
 import { LogOut, User, Info, Home } from "lucide-react";
 import Link from "next/link";
 
@@ -23,7 +25,16 @@ const navigation = [
   { name: "About Product", href: "/products", icon: Info },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  isMobile,
+  toggleSidebar,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  isMobile?: boolean;
+  toggleSidebar?: () => void;
+}) {
+  const pathname = usePathname();
+
   return (
     <Sidebar {...props}>
       <SidebarHeader className="flex flex-col items-center justify-center py-4">
@@ -37,7 +48,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {navigation.map((item) => (
             <SidebarMenuItem key={item.name}>
               <SidebarMenuButton asChild>
-                <Link href={item.href} className="flex items-center">
+                <Link
+                  href={item.href}
+                  className={`flex items-center ${
+                    pathname === item.href
+                      ? "font-bold text-[#fff] bg-[#27272A]"
+                      : "text-[#fff]"
+                  }`}
+                  onClick={isMobile ? toggleSidebar : undefined} // Collapse sidebar on mobile
+                >
                   <item.icon className="mr-2 h-4 w-4" />
                   {item.name}
                 </Link>
@@ -50,7 +69,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Button
           onClick={() => signOut()}
           variant="outline"
-          className="w-full justify-start"
+          className="w-full justify-start bg-black text-white outline-none border-none"
         >
           <LogOut className="mr-2 h-4 w-4" />
           Logout

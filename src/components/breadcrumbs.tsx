@@ -17,7 +17,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <div suppressHydrationWarning>
       <Breadcrumb>
-        <BreadcrumbList>
+        <BreadcrumbList className="ml-5 md:ml-3 lg:ml-2">
           {/* <BreadcrumbItem>
           <BreadcrumbLink href="/" className="flex items-center">
             <Home className="h-4 w-4 mr-2" />
@@ -30,7 +30,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
           {items.map((item, index) => (
             <BreadcrumbItem key={item.href}>
               {index === items.length - 1 ? (
-                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                <BreadcrumbPage className="">{item.label}</BreadcrumbPage>
               ) : (
                 <>
                   <BreadcrumbLink asChild>

@@ -50,7 +50,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   };
 
   return (
-    <Card className="h-full flex flex-col p-4 border rounded shadow-sm">
+    <Card className="h-full flex flex-col md:w-full border rounded shadow-sm">
       {/* Header with title and delete button */}
       <CardHeader className="mb-2">
         <div className="flex justify-between items-center">

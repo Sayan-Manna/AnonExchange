@@ -123,7 +123,7 @@ export default function ProductReview() {
   };
 
   return (
-    <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
+    <div className="container mx-auto my-8 p-6 rounded max-w-4xl">
       {isLoadingProduct ? (
         <div className="text-center">Loading Product Details...</div>
       ) : product ? (

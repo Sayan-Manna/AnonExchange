@@ -25,7 +25,7 @@ export default function Home() {
             "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
           )}
         />
-        <h1 className="text-center text-6xl h-40 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+        <h1 className="text-center text-4xl md:text-6xl h-40 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
           Choose a section to manage <br /> your profile or products.
         </h1>
         <div className=" grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -42,7 +42,7 @@ export default function Home() {
           </Link>
           <Link href="/products">
             <MagicCard
-              className="cursor-pointer flex-col items-center justify-center shadow-2xl p-5"
+              className="cursor-pointer flex-col items-center justify-center shadow-2xl px-5 py-20"
               gradientColor={"#262626"}
             >
               <h2 className="text-xl  font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
