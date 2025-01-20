@@ -114,7 +114,7 @@ export default function Home() {
   return (
     <>
       {/* Main content */}
-      <main className="flex-grow flex flex-col items-center justify-center px-4 bg-black overflow-hidden text-white relative md:px-24 py-12 ">
+      <main className="!h-[90vh] flex-grow flex flex-col items-center justify-center px-4 bg-black overflow-hidden text-white relative md:px-24 py-12 ">
         <StarsBackground
           starDensity={settings.density}
           allStarsTwinkle={settings.allTwinkle}

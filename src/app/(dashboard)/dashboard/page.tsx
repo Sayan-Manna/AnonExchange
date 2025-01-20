@@ -154,7 +154,7 @@ function UserDashboard() {
         />
       </div>
 
-      <div className="relative w-full p-4 md:p-40 h-[90vh] ">
+      <div className="relative w-full p-4 md:p-40 min-h-[90vh] ">
         {/* Squares Background */}
         <GridPattern
           width={30}

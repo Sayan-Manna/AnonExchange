@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SidebarProvider>
-          <div className="dark flex w-full relative bg-background text-foreground">
+          <div className="dark flex w-full relative bg-background text-foreground min-h-screen">
             <AppSidebar
               className={isSidebarOpen ? "block" : "hidden lg:block"} // Conditional visibility
               isMobile={true}
