@@ -23,7 +23,6 @@ import Image from "next/image";
 
 function ProductDetailsPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<Product | null>(null);
-  const [productReview, setProductReview] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
   const [isAcceptingReviews, setIsAcceptingReviews] = useState(false); // State for accepting reviews
@@ -42,11 +41,11 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
         if (data.success) {
           setProduct(data.product); // Assuming `data.product` contains product details
           setIsAcceptingReviews(data.product.isAcceptingReviews); // Set the review acceptance state
-          setProductReview(data.product.reviews);
+          console.log("Product details :::"); // Log the product details
         } else {
           toast({
             title: "Error",
-            description: "Product not found",
+            description: "Product not found, please try again later",
             variant: "destructive",
           });
         }
@@ -209,7 +208,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
             <p className="mb-4">Price: ${product.price}</p>
           </div>
 
-          {product.image ? (
+          {/* {product.image ? (
             <img
               src={product.image}
               alt={product.title}
@@ -217,7 +216,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
             />
           ) : (
             <div>No image available</div>
-          )}
+          )} */}
 
           {/* Display public URL */}
           {/* <div className="my-4">

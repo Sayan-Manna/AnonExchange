@@ -24,6 +24,8 @@ export async function GET(req: NextRequest) {
         { success: false, message: "Product not found" },
         { status: 404 }
       );
+    } else {
+      console.log("Product found");
     }
 
     return NextResponse.json({
