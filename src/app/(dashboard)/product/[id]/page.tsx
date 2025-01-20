@@ -210,11 +210,10 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
           </div>
 
           {product.image ? (
-            <Image
+            <img
               src={product.image}
               alt={product.title}
               className="md:w-80 h-80 object-cover mt-4 mx-auto"
-              loading="lazy"
             />
           ) : (
             <div>No image available</div>
