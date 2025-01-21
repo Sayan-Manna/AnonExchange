@@ -208,7 +208,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
           </h1>
           <div>
             <p className="mb-4">{product.description}</p>
-            <p className="mb-4">Price: ${product.price}</p>
+            {product.price && <p className="mb-4">Price: {product.price}</p>}
           </div>
 
           {product.image ? (

@@ -1,4 +1,4 @@
-import UserModel, { ProductModel, ReviewModel } from "@/model/User";
+import UserModel, { ProductModel } from "@/model/User";
 import mongoose from "mongoose";
 
 type ConnectionObject = {
@@ -23,7 +23,7 @@ async function dbConnect(): Promise<void> {
     await Promise.all([
       UserModel.createIndexes(),
       ProductModel.createIndexes(),
-      ReviewModel.createIndexes(),
+      // ReviewModel.createIndexes(),
     ]);
     console.log("Indexes created successfully");
 

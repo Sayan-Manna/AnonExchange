@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
-import { ProductModel } from "@/model/User";
+import UserModel, { ProductModel } from "@/model/User";
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt"; // Import next-auth token for user authentication
+import { authOptions } from "../auth/[...nextauth]/options"; // Path to your NextAuth configuration
+import { getServerSession } from "next-auth";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,33 +11,27 @@ export async function POST(request: NextRequest) {
 
     // Parse the request body
     const requestBody = await request.json();
-    let { title, description, price, image, isAcceptingReviews, user } =
-      requestBody;
+    let { title, description, price, image, isAcceptingReviews } = requestBody;
 
-    // console.log("Received data:", {
-    //   title,
-    //   description,
-    //   price,
-    //   image,
-    //   user,
-    //   isAcceptingReviews,
-    // });
+    console.log("Received data:", {
+      title,
+      description,
+      price,
+      image,
+      isAcceptingReviews,
+    });
 
-    // If no user is provided in the request body, attempt to fetch from the session (if using next-auth)
-    let userId = user;
-    if (!userId) {
-      const token = await getToken({ req: request });
-      if (token?.sub) {
-        // Use the user ID from the token if the user is authenticated
-        userId = token.sub;
-      } else {
-        // If no user is found, return an error
-        return NextResponse.json(
-          { error: "User is required" },
-          { status: 400 }
-        );
-      }
+    // Get the session of the logged-in user
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized access" },
+        { status: 401 }
+      );
     }
+
+    const userId = session.user._id; // Assuming `id` is part of your session.user
 
     // Handle image field: If it's an empty string, make it undefined
     if (image === "") {
@@ -49,20 +44,32 @@ export async function POST(request: NextRequest) {
       description,
       price,
       image, // This will be either undefined or a valid image URL
-      user: userId, // Ensure this is a valid ObjectId
       isAcceptingReviews,
       reviews: [], // Initialize with an empty reviews array
     });
 
     // Save the product to the database
-    await newProduct.save();
+    const savedProduct = await newProduct.save();
+
+    // Find the user and update their products array
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { $push: { products: savedProduct._id } }, // Push the product ID into the products array
+      { new: true } // Return the updated user document
+    );
+    if (!updatedUser) {
+      return NextResponse.json(
+        { success: false, message: "User not found" },
+        { status: 404 }
+      );
+    }
 
     // Return a success response with the product data
     return NextResponse.json(
       {
         success: true,
-        message: "Product created successfully",
-        product: newProduct,
+        message: "Product created successfully and added to user",
+        product: savedProduct,
       },
       { status: 201 }
     );

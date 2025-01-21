@@ -50,6 +50,7 @@ function ProductList() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const response = await axios.post("/api/create-product", formData);
       if (response.data.success) {
@@ -166,13 +167,12 @@ function ProductList() {
               <div>
                 <label className="block text-sm font-medium">Price</label>
                 <input
-                  type="number"
+                  type="text"
                   value={formData.price}
                   onChange={(e) =>
                     setFormData({ ...formData, price: e.target.value })
                   }
                   className="w-full border rounded px-4 py-2"
-                  required
                 />
               </div>
               <div>
