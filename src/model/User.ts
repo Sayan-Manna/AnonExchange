@@ -49,7 +49,7 @@ export interface Product extends Document {
   description: string;
   price?: string;
   image?: string;
-  // user: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
   isAcceptingReviews: boolean;
   reviews: Review[];
 }
@@ -69,12 +69,12 @@ const ProductSchema: Schema<Product> = new Schema(
         message: "Invalid image URL",
       },
     },
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    //   index: true,
-    // },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
+    },
     isAcceptingReviews: { type: Boolean, default: true },
     reviews: [ReviewSchema],
   },

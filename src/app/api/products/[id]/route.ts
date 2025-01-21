@@ -1,6 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import { ProductModel } from "@/model/User";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]/options";
 
 // Named export for GET request
 export async function GET(req: NextRequest) {
@@ -19,7 +21,6 @@ export async function GET(req: NextRequest) {
 
   try {
     await dbConnect();
-    console.log("MongoDB connection successful");
 
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop();
@@ -30,6 +31,16 @@ export async function GET(req: NextRequest) {
         { status: 400 }
       );
     }
+    const session = await getServerSession(authOptions);
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized access" },
+        { status: 401 }
+      );
+    }
+
+    const userId = session.user._id;
 
     const product = await ProductModel.findById(id).lean().exec();
 
@@ -37,6 +48,15 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(
         { success: false, message: "Product not found" },
         { status: 404 }
+      );
+    }
+    // Check ownership of the product
+    if (product.user._id.toString() !== userId) {
+      console.log("You do not own this product");
+
+      return NextResponse.json(
+        { success: false, message: "Forbidden: You do not own this product" },
+        { status: 403 }
       );
     }
 

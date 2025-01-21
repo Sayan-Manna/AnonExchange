@@ -11,27 +11,30 @@ export async function POST(request: NextRequest) {
 
     // Parse the request body
     const requestBody = await request.json();
-    let { title, description, price, image, isAcceptingReviews } = requestBody;
+    let { title, description, price, image, isAcceptingReviews, user } =
+      requestBody;
 
     console.log("Received data:", {
       title,
       description,
       price,
       image,
+      user,
       isAcceptingReviews,
     });
 
-    // Get the session of the logged-in user
-    const session = await getServerSession(authOptions);
-
-    if (!session || !session.user) {
-      return NextResponse.json(
-        { success: false, message: "Unauthorized access" },
-        { status: 401 }
-      );
+    // If no user is provided, fetch the logged-in user
+    let userId = user;
+    if (!user) {
+      const session = await getServerSession(authOptions);
+      if (!session || !session.user) {
+        return NextResponse.json(
+          { success: false, message: "Unauthorized access" },
+          { status: 401 }
+        );
+      }
+      userId = session.user._id;
     }
-
-    const userId = session.user._id; // Assuming `id` is part of your session.user
 
     // Handle image field: If it's an empty string, make it undefined
     if (image === "") {
@@ -45,6 +48,7 @@ export async function POST(request: NextRequest) {
       price,
       image, // This will be either undefined or a valid image URL
       isAcceptingReviews,
+      user: userId, // Set the user ID as the product owner
       reviews: [], // Initialize with an empty reviews array
     });
 
