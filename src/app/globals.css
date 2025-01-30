@@ -45,7 +45,8 @@
     /* --border: 214.3 31.8% 91.4%; */
     --border: 217.2 32.6% 17.5%;
 
-    --input: 214.3 31.8% 91.4%;
+    /* --input: 214.3 31.8% 91.4%; */
+    --input: 217.2 32.6% 17.5%;
     --ring: 222.2 84% 4.9%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -120,6 +121,10 @@
   padding: 10;
   margin-bottom: 2vw;
   margin-left: 2vw;
+}
+input {
+  color: #fff !important;
+  background-color: #000 !important;
 }
 
 /* Chrome, Edge, and Safari */

@@ -154,7 +154,7 @@ function UserDashboard() {
         />
       </div>
 
-      <div className="relative w-full p-4 md:p-40 min-h-[90vh] ">
+      <div className="relative p-4 md:p-10 min-h-[90vh] ">
         {/* Squares Background */}
         <GridPattern
           width={30}
@@ -169,9 +169,11 @@ function UserDashboard() {
 
         {/* Dashboard Content */}
         <div className="relative flex flex-col gap-11 mx-auto text-white rounded">
-          <h1 className="text-center text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
-            User Dashboard
-          </h1>
+          <div>
+            <h1 className="text-center text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+              User Dashboard
+            </h1>
+          </div>
 
           {/* <div className="mb-4">
             <h2 className="text-lg font-semibold mb-2">

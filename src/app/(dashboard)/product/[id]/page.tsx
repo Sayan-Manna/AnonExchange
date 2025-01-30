@@ -191,7 +191,7 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
         />
       </div>
 
-      <div className="relative p-4 md:p-40 min-h-[90vh] ">
+      <div className="relative p-4 md:p-10 min-h-[90vh] ">
         <GridPattern
           width={30}
           height={30}
@@ -203,9 +203,12 @@ function ProductDetailsPage({ params }: { params: { id: string } }) {
           )}
         />
         <div className="relative flex flex-col gap-11 mx-auto text-white rounded">
-          <h1 className="text-center text-4xl md:text-7xl md:h-24 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
-            {product.title}
-          </h1>
+          <div>
+            <h1 className="text-center text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+              {product.title}
+            </h1>
+          </div>
+
           <div>
             <p className="mb-4">{product.description}</p>
             {product.price && <p className="mb-4">Price: {product.price}</p>}

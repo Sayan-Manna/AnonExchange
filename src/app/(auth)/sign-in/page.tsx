@@ -61,7 +61,7 @@ export default function SignInForm() {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black w-full">
-      <div className="w-80 md:w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+      <div className="w-80 md:w-full max-w-md p-8 space-y-8  !text-black bg-gradient-to-b from-neutral-200 to-neutral-600 rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Welcome Back to AnonExchange
@@ -100,7 +100,7 @@ export default function SignInForm() {
         <div className="text-center mt-4">
           <p>
             Not a member yet?{" "}
-            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-up" className="text-blue-800 hover:text-blue-900">
               Sign up
             </Link>
           </p>

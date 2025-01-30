@@ -25,9 +25,12 @@ export default function Home() {
             "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
           )}
         />
-        <h1 className="text-center text-4xl md:text-6xl h-40 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
-          Choose a section to manage <br /> your profile or products.
-        </h1>
+        <div>
+          <h1 className="text-center text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-600">
+            Choose a section to manage <br /> your profile or products.
+          </h1>
+        </div>
+
         <div className=" grid grid-cols-1 gap-4 md:grid-cols-2">
           <Link href="/dashboard">
             <MagicCard
