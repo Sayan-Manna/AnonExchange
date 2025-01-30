@@ -5,27 +5,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
 
 // Named export for GET request
-export async function GET(req: NextRequest) {
-  // await dbConnect(); // Connect to the database
-  // console.log("Connected to database");
-  // const url = new URL(req.url); // Extract URL from the request
-  // const id = url.pathname.split("/").pop(); // Extract ID from the URL path
-  // // console.log("Product ID:", id);
-
-  // if (!id || Array.isArray(id)) {
-  //   return NextResponse.json(
-  //     { success: false, message: "Invalid or missing product ID" },
-  //     { status: 400 }
-  //   );
-  // }
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  await dbConnect(); // Connect to the database
 
   try {
-    await dbConnect();
+    // const url = new URL(req.url);
+    // const id = url.pathname.split("/").pop();
 
-    const url = new URL(req.url);
-    const id = url.pathname.split("/").pop();
-
-    if (!id || Array.isArray(id)) {
+    // if (!id || Array.isArray(id)) {
+    //   return NextResponse.json(
+    //     { success: false, message: "Invalid or missing product ID" },
+    //     { status: 400 }
+    //   );
+    // }
+    const { id } = params;
+    if (!id) {
       return NextResponse.json(
         { success: false, message: "Invalid or missing product ID" },
         { status: 400 }
