@@ -19,7 +19,7 @@ export async function POST(request: Request) {
           success: false,
           message: "Username already exists",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
           },
           {
             status: 400,
-          }
+          },
         );
       } else {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -64,23 +64,20 @@ export async function POST(request: Request) {
     }
 
     // send verification email
-    const emailResponse = await sendVerificationEmail(
-      email,
-      username,
-      verifyCode
-    );
+    // In your existing POST function:
+    const emailResponse = await sendVerificationEmail(email, username, verifyCode);
 
-    // if (!emailResponse.success) {
-    //   return Response.json(
-    //     {
-    //       success: false,
-    //       message: emailResponse.message,
-    //     },
-    //     {
-    //       status: 500,
-    //     }
-    //   );
-    // }
+    if (!emailResponse.success) {
+      return Response.json(
+        {
+          success: false,
+          message: emailResponse.message,
+        },
+        {
+          status: 500,
+        },
+      );
+    }
     return Response.json(
       {
         success: true,
@@ -88,7 +85,7 @@ export async function POST(request: Request) {
       },
       {
         status: 201,
-      }
+      },
     );
   } catch (error) {
     console.error("Error registering user: ", error);
@@ -99,7 +96,7 @@ export async function POST(request: Request) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
